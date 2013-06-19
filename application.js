@@ -1,10 +1,22 @@
 $(document).ready(function() {
 
+  //create container to hold dice
+
   var dice = [];
+
+
+  // create die constructor and prototype methods
 
   function die() {
     this.state = 1;
   }
+
+  die.prototype.roll = function() {
+    this.state = Math.floor((Math.random() * 6) + 1);
+  };
+
+
+  // create DOMRenderer constructor and prototype methods
 
   function DOMRenderer() {}
 
@@ -23,13 +35,21 @@ $(document).ready(function() {
 
   var renderer = new DOMRenderer();
 
-  die.prototype.roll = function() {
-    this.state = Math.floor((Math.random() * 6) + 1);
-  };
+
+  // rename buttons for ease of reading
 
   var addDieButton = $('#roller button.add');
-
   var rollDiceButton = $('#roller button.roll');
+
+
+  // set event handlers
+
+  addDieButton.on('click', function() { addDie(); });
+
+  rollDiceButton.on('click', function() { rollDice(); });
+
+
+  // define callback functions
 
   function addDie() {
     var new_die = new die();
@@ -45,7 +65,5 @@ $(document).ready(function() {
     }
   }
 
-  addDieButton.on('click', function() { addDie(); });
-
-  rollDiceButton.on('click', function() { rollDice(); });
 });
+
